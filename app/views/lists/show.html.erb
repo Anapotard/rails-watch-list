@@ -1,0 +1,15 @@
+<br><br><br>
+<h1><%= @list.name %></h1>
+
+<% @list.bookmarks.each do |bookmark| %>
+<ul>
+  <li class="list-group-item"><%= bookmark.movie.title %></li>
+  <li class="list-group-item"><%= bookmark.movie.poster_url %></li>
+  <li class="list-group-item"><%= bookmark.comment %></li>
+  <li class="list-group-item"><%= link_to "Remove", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" } %></li>
+
+</ul>
+<% end %>
+
+<%= link_to "Add movie", new_list_bookmark_path(@list) %>
+<%= link_to "Back", lists_path %>
