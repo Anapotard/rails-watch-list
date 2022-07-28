@@ -1,10 +1,14 @@
 class ListsController < ApplicationController
+  before_action :set_list, only: [:show, :destroy]
+
   def index
     @lists = List.all
   end
 
   def show
-    @list = List.find(params[:id])
+    @bookmark = Bookmark.new
+    #@review = Review.new(list: @list)
+    #@list = List.find(params[:id])
     #@bookmark = @list.bookmarks
   end
 
@@ -21,13 +25,18 @@ class ListsController < ApplicationController
     end
   end
 
-  def list_params
-    params.require(:list).permit(:name, :photos)
-  end
-
   def destroy
-    @list = List.find(params[:list_id])
     @list.destroy
     redirect_to lists_path
+  end
+
+  private
+
+  def set_list
+    @list = List.find(params[:id])
+  end
+
+  def list_params
+    params.require(:list).permit(:name, :photos)
   end
 end
